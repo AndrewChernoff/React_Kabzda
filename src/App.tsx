@@ -31,7 +31,7 @@ function App() {
 }
 
 const Rating = ({ value }: RatingProps) => {
-  if (value === 1) {
+  /* if (value === 1) {
     return (
       <div>
         <Star selected={true} />
@@ -81,15 +81,15 @@ const Rating = ({ value }: RatingProps) => {
         <Star selected={true} />
       </div>
     );
-  }
+  } */
 
   return (
     <div>
-      <Star selected={false} />
-      <Star selected={false} />
-      <Star selected={false} />
-      <Star selected={false} />
-      <Star selected={false} />
+      <Star selected={value > 0} />
+      <Star selected={value > 1} />
+      <Star selected={value > 2} />
+      <Star selected={value > 3} />
+      <Star selected={value > 4} />
     </div>
   );
 }
