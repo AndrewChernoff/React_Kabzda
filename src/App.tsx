@@ -1,4 +1,7 @@
+import { useState } from "react";
 import Accordion from "./components/Accordion";
+import OnOff from "./components/OnOff";
+import UncontrolledRating from "./components/UncontrolledRating";
 
 export interface Title {
   title: string;
@@ -15,95 +18,36 @@ interface RatingProps {
 function App() {
   return (
     <div>
+      <OnOff />
       <PageTitle title={"This is app component"} />
       <Accordion title={"Menu"}/>
 
-      <hr />
-      <Rating value={0} />
-      <Rating value={1} />
-      <Rating value={2} />
-      <Rating value={3} />
-      <Rating value={4} />
-      <Rating value={5} />
-      <hr />
+      {/* <UncontrolledRating/> */}
+      <Rating />
+      <hr/>
     </div>
   );
 }
 
-const Rating = ({ value }: RatingProps) => {
-  /* if (value === 1) {
-    return (
-      <div>
-        <Star selected={true} />
-        <Star selected={false} />
-        <Star selected={false} />
-        <Star selected={false} />
-        <Star selected={false} />
-      </div>
-    );
-  } else if (value === 2) {
-    return (
-      <div>
-        <Star selected={true} />
-        <Star selected={true} />
-        <Star selected={false} />
-        <Star selected={false} />
-        <Star selected={false} />
-      </div>
-    );
-  } else if (value === 3) {
-    return (
-      <div>
-        <Star selected={true} />
-        <Star selected={true} />
-        <Star selected={true} />
-        <Star selected={false} />
-        <Star selected={false} />
-      </div>
-    );
-  } else if (value === 4) {
-    return (
-      <div>
-        <Star selected={true} />
-        <Star selected={true} />
-        <Star selected={true} />
-        <Star selected={true} />
-        <Star selected={false} />
-      </div>
-    );
-  } else if (value === 5) {
-    return (
-      <div>
-        <Star selected={true} />
-        <Star selected={true} />
-        <Star selected={true} />
-        <Star selected={true} />
-        <Star selected={true} />
-      </div>
-    );
-  } */
 
-  return (
-    <div>
-      <Star selected={value > 0} />
-      <Star selected={value > 1} />
-      <Star selected={value > 2} />
-      <Star selected={value > 3} />
-      <Star selected={value > 4} />
-    </div>
-  );
+const Rating = () => {
+  const [value, setValue] = useState(0);
+
+  const changeRating = (value: number) => setValue(value)
+
+  return <>
+  <Star selected={value > 0} changeRating={() => changeRating(1)}/>
+  <Star selected={value > 1} changeRating={() => changeRating(2)}/>
+  <Star selected={value > 2} changeRating={() => changeRating(3)}/>
+  <Star selected={value > 3} changeRating={() => changeRating(4)}/>
+  <Star selected={value > 4} changeRating={() => changeRating(5)}/>
+  </>
 }
 
-const Star = ({ selected }: Selected) => {
-  return selected ? (
-    <span>
-      {" "}
-      <b>Star</b>{" "}
-    </span>
-  ) : (
-    <span> Star </span>
-  );
+const Star = ({selected, changeRating}: any) => {
+  return <span onClick={changeRating}> {selected? <b>Star</b> : 'Star'} </span>
 }
+
 
 const PageTitle = ({ title }: Title) => {
   return <h1> {title} </h1>;
