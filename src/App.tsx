@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Accordion from "./components/Accordion";
 import OnOff from "./components/OnOff";
+import Select from "./components/Select/Select";
 import UncontrolledRating from "./components/UncontrolledRating";
 
 export interface Title {
@@ -16,6 +17,7 @@ interface RatingProps {
 }
 
 function App() {
+
   return (
     <div>
       <OnOff />
@@ -25,6 +27,8 @@ function App() {
       {/* <UncontrolledRating/> */}
       <Rating />
       <hr/>
+
+      <Select />
     </div>
   );
 }
