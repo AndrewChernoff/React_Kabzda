@@ -1,24 +1,22 @@
-import { useState } from "react";
+import { memo, useState } from "react";
 
-const UncontrolledRating = () => {
-    const [value, setValue] = useState(5);
+const Rating = () => {
+  const [value, setValue] = useState(0);
 
-  return<> 
-  <Star selected={value > 0} value={1} setValue={setValue}/> 
-  <Star selected={value > 1} value={2} setValue={setValue}/>
-  <Star selected={value > 2} value={3} setValue={setValue}/>
-  <Star selected={value > 3} value={4} setValue={setValue}/>
-  <Star selected={value > 4} value={5} setValue={setValue}/>
-  </>;
-};
+  const changeRating = (value: number) => setValue(value)
 
-const Star = ({selected, value, setValue}: any) => {
-  return <> 
-  <span onClick={() => {
-    console.log(value);
-    
-    setValue(value)}}>{selected? <b>Star</b>: 'Star'} </span> 
+  return <>
+  <Star selected={value > 0} changeRating={() => changeRating(1)}/>
+  <Star selected={value > 1} changeRating={() => changeRating(2)}/>
+  <Star selected={value > 2} changeRating={() => changeRating(3)}/>
+  <Star selected={value > 3} changeRating={() => changeRating(4)}/>
+  <Star selected={value > 4} changeRating={() => changeRating(5)}/>
   </>
-};
+}
 
-export default UncontrolledRating;
+const Star = memo(({selected, changeRating}: any) => {
+  return <span onClick={changeRating}> {selected? <b>Star</b> : 'Star'} </span>
+})
+
+
+export default memo(Rating)

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { CityType } from './Select';
 import s from './Select.module.css';
 
@@ -48,4 +48,4 @@ const DropDown: React.FC<DropDownProps> = ({
   );
 };
 
-export default DropDown;
+export default memo(DropDown);

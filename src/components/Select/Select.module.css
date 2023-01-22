@@ -57,5 +57,6 @@
   }
 
   .active {
+    color: white;
     background: green;
   }

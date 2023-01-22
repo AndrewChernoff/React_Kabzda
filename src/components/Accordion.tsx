@@ -1,4 +1,4 @@
-import { useReducer, useState } from "react";
+import { memo, useReducer, useState } from "react";
 import { Title } from "../App";
 import { reducer } from "../reducer/reducer";
 
@@ -9,12 +9,6 @@ type UsersType = {
 
 
 const Accordion = ({ title }: Title) => {
-
-  type Action = {
-    type: string
-  }
-
-
 
   const [collapsed, dispatch] = useReducer(reducer, false)
   // [collapsed, setCollapsed] = useState(false);
@@ -39,16 +33,15 @@ type AccordionBodyType = {
   callback: (obj: UsersType) => void
 }
 
-const AccordionBody = ({users}: AccordionBodyType) => {
+const AccordionBody = memo(({users}: AccordionBodyType) => {
 
   const onClickHandler = (obj:UsersType) => console.log(obj);
   
-
   return (
     <ul>
       {users.map( el => <li key={el.id} onClick={() => onClickHandler(el)}>{el.name}</li>)}
     </ul>
   );
-};
+});
 
-export default Accordion;
+export default memo(Accordion);

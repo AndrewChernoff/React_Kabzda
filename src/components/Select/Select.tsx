@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { memo, useState } from "react";
 import DropDown from "./DropDown";
 import s from './Select.module.css';
 
@@ -58,7 +58,7 @@ const Select: React.FC = (): JSX.Element => {
   );
 };
 
-export default Select;
+export default memo(Select);
 
 /* const Select = () => {
 
