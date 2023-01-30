@@ -1,17 +1,28 @@
-import { memo, useState } from "react";
+import { memo, useMemo, useState } from "react";
 import DropDown from "./DropDown";
 import s from './Select.module.css';
 
 export type CityType = {
   id: number
   title: string
+  field: string
 }
+
+export type FilterValue = 'all' | 'backend'| 'frontend'
 
 const Select: React.FC = (): JSX.Element => {
   const [showDropDown, setShowDropDown] = useState<boolean>(false);
-  const [selectTeach, setSelectCity] = useState<any>(null);
-  const technologies = [{id: 1, title: "HTML"}, {id: 2, title: "CSS"}, {id: 3, title:"React"},{id: 4, title: "React + Redux"}]
-
+  const [selectTeach, setSelectTeach] = useState<any>(null);
+  const [technologies, setTechnology] = useState([
+    {id: 1, title: "HTML", field: 'frontend'}, 
+    {id: 2, title: "CSS", field: 'frontend'},
+    {id: 3, title: "React", field: 'frontend'},
+    {id: 4, title: "React + Redux", field: 'frontend'},
+    {id: 5, title: "Node js", field: 'backend'},
+    {id: 6, title: "MongoDB", field: 'backend'},
+    {id: 7, title: "Nest", field: 'backend'},
+  ])
+  const [filter, setFilter] = useState<FilterValue>('all')
 
   const toggleDropDown = () => {
     setShowDropDown(!showDropDown);
@@ -24,11 +35,32 @@ const Select: React.FC = (): JSX.Element => {
   };
 
   const techSelection = (value: string): void => {
-    setSelectCity(value);
+    setSelectTeach(value);
   };
+
+  const filteredTechnologies = useMemo(
+    () => {
+      if (filter === 'all') {
+        return technologies
+      } else if (filter === 'frontend') {
+        return technologies.filter(el => el.field === 'frontend')
+      } else if (filter === 'backend') {
+        return technologies.filter(el => el.field === 'backend')
+      }
+    },
+    [filter]
+  );
+
+  const onBtnHandler = (value: FilterValue) =>  () => setFilter(value)
 
   return (
     <>
+    <div>
+      <button onClick={onBtnHandler('all')}>All</button>
+      <button onClick={onBtnHandler('frontend')}>Frontend</button>
+      <button onClick={onBtnHandler('backend')}>Backend</button>
+    </div>
+
       <div className={s.announcement}>
         <div>
           {selectTeach
@@ -47,7 +79,7 @@ const Select: React.FC = (): JSX.Element => {
         {showDropDown && (
           <DropDown
           selectTeach={selectTeach}
-          technologies={technologies}
+          technologies={filteredTechnologies}
             showDropDown={false}
             toggleDropDown={(): void => toggleDropDown()}
             techSelection={techSelection}

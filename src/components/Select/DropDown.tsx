@@ -1,13 +1,13 @@
 import React, { memo, useEffect, useState } from 'react';
-import { CityType } from './Select';
+import { CityType, FilterValue } from './Select';
 import s from './Select.module.css';
 
 type DropDownProps = {
     selectTeach: any
-    technologies: CityType[];
-  showDropDown: boolean;
-  toggleDropDown: Function;
-  techSelection: Function;
+    technologies: CityType[] | undefined
+    showDropDown: boolean;
+    toggleDropDown: Function;
+    techSelection: any;
 };
 
 const DropDown: React.FC<DropDownProps> = ({
@@ -25,10 +25,14 @@ const DropDown: React.FC<DropDownProps> = ({
     setShowDropDown(showDropDown);
   }, [showDropDown]);
 
+  console.log('techs');
+  
+
   return (
     <>
-      <div className={showDropDown ? s.dropdown : `${s.dropdown} + ${s.activ/**/}`}>
-        {technologies.map(
+    <div>
+      <div className={showDropDown ? s.dropdown : `${s.dropdown} + ${s.activ}`}>
+         {technologies?.map(
           ({title, id}) => {
             return (
               <p
@@ -42,8 +46,9 @@ const DropDown: React.FC<DropDownProps> = ({
               </p>
             );
           }
-        )}
+        )} 
       </div>
+    </div>
     </>
   );
 };
