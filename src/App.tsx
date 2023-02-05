@@ -4,6 +4,7 @@ import FactorialCounting from "./components/FactorialCounting";
 import OnOff from "./components/OnOff";
 import Select from "./components/Select/Select";
 import UncontrolledRating from "./components/UncontrolledRating";
+import UseCallBack from "./components/UseCallBack";
 import UserList from "./components/Users";
 import Users from "./components/Users";
 
@@ -47,6 +48,9 @@ console.log('counter')
       <Select />
 
       <FactorialCounting />
+
+      <hr/>
+   <UseCallBack />
     </div>
   </>
   );
