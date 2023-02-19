@@ -26,7 +26,7 @@ type BooksType = {
 const Books = memo(({books, onAddBook}: BooksType) => {
     console.log('Books')
     return <div>
-        {books.map(b => <ul>{b}</ul>)}
+        {books.map((b, i) => <ul key={i}>{b}</ul>)}
         <button onClick={onAddBook}>+</button>
     </div>
 })
